@@ -1,11 +1,10 @@
 const line = require("@line/bot-sdk");
-const axios = require("axios");
 const express = require("express");
 const dotenv = require("dotenv");
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 const app = express();
 const env = dotenv.config().parsed;
-const port = process.env.PORT || 8080
+const port = process.env.PORT || 8080;
 
 const genAI = new GoogleGenerativeAI(env.API_KEY);
 const model = genAI.getGenerativeModel({
@@ -16,12 +15,23 @@ const chat = model.startChat({
     history: [
         {
             role: "user",
-            parts: [{ text: "ไม่ต้องใช้ข้อความ Markdown ตัวอย่างเช่น (**บทที่หนึ่ง**), ให้คำตอบที่เป็นข้อความธรรมดาเท่านั้น, ไม่ต้องใส่เครื่องหมายพิเศษ เช่น * หรือ ** ในข้อความตอบกลับ ซึ่งอาจทำให้ข้อความดูไม่เรียบร้อย" }],
+            parts: [
+                {
+                    text: `สร้างเรื่องสั้นเป็นภาษาไทย แล้วให้ผู้ใช้แปลเป็นภาษาอังกฤษ ตรวจสอบความถูกต้องของการแปล พร้อมแนะนำการปรับปรุงถ้ามี โดยให้ปฏิบัติตามหลักเกณฑ์ดังนี้:
+                            - ระบุคำศัพท์ (Vocabulary) ที่ใช้ทุกคำ
+                            - แจ้งประเภทของคำศัพท์ด้วย เช่น: door (noun) - ประตู
+                            # โครงสร้าง
+                            - บทเรื่อง (ห้าม ระบุคำศัพท์ (Vocabulary), แจ้งประเภทของคำศัพท์)
+                            - Vocabulary (ระบุคำศัพท์ (Vocabulary), แจ้งประเภทของคำศัพท์)`,
+                },
+            ],
         },
         {
             role: "model",
             parts: [
-                { text: "ได้เลยค่ะ ฉันจะตอบกลับเป็นข้อความธรรมดา โดยไม่มีเครื่องหมายพิเศษใดๆ เพิ่มเติม เพื่อให้ข้อความอ่านง่ายและเข้าใจได้ชัดเจนยิ่งขึ้นค่ะ" },
+                {
+                    text: "ได้เลยค่ะ",
+                },
             ],
         },
     ],
