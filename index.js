@@ -5,6 +5,7 @@ const dotenv = require("dotenv");
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 const app = express();
 const env = dotenv.config().parsed;
+const port = process.env.PORT || 8080
 
 const genAI = new GoogleGenerativeAI(env.API_KEY);
 const model = genAI.getGenerativeModel({
@@ -63,4 +64,4 @@ app.get("/", (req, res) => {
     res.send("ok");
 });
 
-app.listen(8080, () => console.log("Start server on port 8080"));
+app.listen(port, () => console.log("Start server on port 8080"));
