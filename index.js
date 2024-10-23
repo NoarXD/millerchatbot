@@ -3,10 +3,10 @@ const express = require("express");
 const dotenv = require("dotenv");
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 const app = express();
-const env = dotenv.config().parsed;
+// const env = dotenv.config().parsed;
 const port = process.env.PORT || 8080;
 
-const genAI = new GoogleGenerativeAI(env.API_KEY);
+const genAI = new GoogleGenerativeAI(process.env.API_KEY);
 const model = genAI.getGenerativeModel({
     model: "gemini-1.5-flash",
 });
@@ -33,8 +33,8 @@ const chat = model.startChat({
 });
 
 const lineConfig = {
-    channelAccessToken: env.TOKEN,
-    channelSecret: env.SECRETCODE,
+    channelAccessToken: process.env.TOKEN,
+    channelSecret: process.env.SECRETCODE,
 };
 
 // Initialize the LINE client correctly
